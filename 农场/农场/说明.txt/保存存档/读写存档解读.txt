@@ -1,0 +1,98 @@
+﻿代码逐行解读
+这是一段C# 游戏存档读写工具类代码，核心作用是把游戏数据保存为 JSON 文件、从 JSON 文件读取游戏数据，是 Unity / 纯 C# 开发中最常用的简易本地存档方案。
+我会分整体结构、保存方法、读档方法、关键知识点、代码问题 5 部分通俗解读：
+一、整体代码结构
+csharp
+运行
+// 公共类：专门处理【存档】和【读档】的工具类
+public class 读写存档
+{
+    // 静态方法：保存存档（无返回值）
+    static public void 保存(存档数据 数据)
+    {
+        // 1. 把游戏数据 转为 JSON文本
+        string json = System.Text.Json.JsonSerializer.Serialize(数据);
+        // 2. 把JSON文本 写入文件
+        File.WriteAllText("存档文件.json", json);
+    }
+
+    // 静态方法：读取存档（返回游戏数据）
+    static public 存档数据 读档()
+    {
+        // 如果存档文件不存在 → 返回新的空数据
+        if (!File.Exists("存档文件.json"))
+        {
+            return new 存档数据();
+        }
+
+        // 读取文件中的JSON文本
+        string json = File.ReadAllText("存档文件.json");
+        // 把JSON文本 转回 游戏数据对象
+        return JsonSerializer.Deserialize<存档数据>(json)!;
+    }
+}
+// 代码末尾有一个多余的 }，是语法错误
+核心定义
+读写存档：公共工具类，只负责存档读写，不处理游戏逻辑；
+static：静态关键字 → 不需要创建类的实例，直接用 读写存档.保存() 调用；
+存档数据：你自定义的类（比如存血量、金币、关卡、角色名），是游戏的核心数据载体。
+二、「保存」方法详解
+csharp
+运行
+static public void 保存(存档数据 数据)
+{
+    // 序列化：内存中的对象 → JSON格式的文本字符串
+    string json = System.Text.Json.JsonSerializer.Serialize(数据);
+    // 把文本写入文件（文件不存在自动创建，存在则覆盖）
+    File.WriteAllText("存档文件.json", json);
+}
+参数：接收一个存档数据对象（装满了当前游戏的所有数据）；
+序列化：JsonSerializer.Serialize → 把内存中的对象转换成人类 / 程序都能读懂的 JSON 文本；
+写文件：File.WriteAllText → 将 JSON 文本写入程序运行目录下的存档文件.json。
+三、「读档」方法详解
+csharp
+运行
+static public 存档数据 读档()
+{
+    // 判断：存档文件是否存在
+    if (!File.Exists("存档文件.json"))
+    {
+        // 无存档 → 返回【全新的空存档】（避免报错）
+        return new 存档数据();
+    }
+
+    // 读取文件里的所有JSON文本
+    string json = File.ReadAllText("存档文件.json");
+    // 反序列化：JSON文本 → 内存中的存档数据对象
+    return JsonSerializer.Deserialize<存档数据>(json)!;
+}
+文件判断：第一次运行游戏时没有存档文件，直接返回默认空数据（新手初始状态）；
+读文件：文件存在则读取 JSON 文本；
+反序列化：JsonSerializer.Deserialize → 把 JSON 文本还原成程序能用的存档数据对象；
+!：空值原谅运算符 → 告诉编译器「这里一定有值，不会返回 null」，消除空值警告。
+四、必须知道的关键知识点
+JSON 是什么？
+通用的文本格式，能把对象数据存成纯文本（比如 {"金币":100,"血量":99}），跨平台、易读取。
+序列化 / 反序列化
+序列化：对象 → JSON（保存）
+反序列化：JSON → 对象（读档）
+文件路径
+存档文件.json 是相对路径，文件会生成在：
+Unity 编辑器：项目根目录
+打包后游戏：游戏exe同级目录
+依赖的命名空间
+代码必须添加这两行，否则编译报错：
+csharp
+运行
+using System.IO;          // File文件操作
+using System.Text.Json;   // JSON序列化
+五、代码中的问题（必看）
+语法错误：代码最后多了一个 }，直接删掉即可；
+中文标识符：类名、方法名用中文语法合法，但行业不推荐（建议英文：SaveLoad、SaveData、Save()、Load()）；
+无异常处理：如果文件被占用、JSON 损坏，程序会直接崩溃（正式版需要加try-catch）；
+命名空间不统一：保存用了全命名System.Text.Json.JsonSerializer，读档直接写JsonSerializer，会报错。
+总结
+这是一个极简的本地存档工具，适合小型游戏 / 原型开发；
+核心逻辑：对象转 JSON 存文件、JSON 转对象读数据；
+配合你自定义的存档数据类，就能实现游戏的存档 / 读档功能；
+修复语法错误、补充命名空间后，可直接在项目中使用。

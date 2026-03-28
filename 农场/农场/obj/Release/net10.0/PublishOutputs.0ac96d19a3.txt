@@ -1,0 +1,5 @@
+F:\MyGame\农场\农场\bin\Release\net10.0\app.publish\农场.exe
+F:\MyGame\农场\农场\bin\Release\net10.0\app.publish\农场.dll
+F:\MyGame\农场\农场\bin\Release\net10.0\app.publish\农场.deps.json
+F:\MyGame\农场\农场\bin\Release\net10.0\app.publish\农场.runtimeconfig.json
+F:\MyGame\农场\农场\bin\Release\net10.0\app.publish\农场.pdb

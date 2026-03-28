@@ -1,0 +1,14 @@
+F:\MyGame\农场\农场\bin\x64\Debug\net10.0\农场.exe
+F:\MyGame\农场\农场\bin\x64\Debug\net10.0\农场.deps.json
+F:\MyGame\农场\农场\bin\x64\Debug\net10.0\农场.runtimeconfig.json
+F:\MyGame\农场\农场\bin\x64\Debug\net10.0\农场.dll
+F:\MyGame\农场\农场\bin\x64\Debug\net10.0\农场.pdb
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\农场.GeneratedMSBuildEditorConfig.editorconfig
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\农场.AssemblyInfoInputs.cache
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\农场.AssemblyInfo.cs
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\农场.csproj.CoreCompileInputs.cache
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\农场.dll
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\refint\农场.dll
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\农场.pdb
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\农场.genruntimeconfig.cache
+F:\MyGame\农场\农场\obj\x64\Debug\net10.0\ref\农场.dll
